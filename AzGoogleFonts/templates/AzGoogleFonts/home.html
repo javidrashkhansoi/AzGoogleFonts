@@ -1,0 +1,29 @@
+{% extends 'AzGoogleFonts/base.html' %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="row row-cols-lg-3">
+                {% for font in fonts %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="card my-3 mx-auto bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title">Font: <span class="text-primary">{{ font.name }}</span></h5>
+                            <a class="card-subtitle text-muted text-decoration-none" href="{{ font.get_group_url }}">
+                                {{ font.font_group.name }}
+                            </a>
+                            <h6 class="card-subtitle text-muted mt-1 mb-4">Designer:
+                                <a class="text-danger text-decoration-none" href="{{ font.get_designer_url }}">{{ font.designer.name }}</a>
+                            </h6>
+                            <p class="card-text my-0">Text example:</p>
+                            <p class="card-text my-0 fs-5"
+                               style="font-family: '{{ font.name }}', {{ font.font_group.name }};">
+                                <span class="text-success">Üü; İi; Öö; Ğğ; Iı; Əə; Çç; Şş</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+{% endblock %}
