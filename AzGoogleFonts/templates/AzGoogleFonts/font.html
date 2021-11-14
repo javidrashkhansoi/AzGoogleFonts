@@ -1,0 +1,98 @@
+{% extends 'AzGoogleFonts/base.html' %}
+{% block content %}
+    {% for font in fonts %}
+        <div class="container my-5">
+            <h1 class="text-danger" style="font-family: '{{ font.name }}', {{ font.font_group.name }};">{{ font.name }}</h1>
+            <p>Dizayner: <a class="btn btn-dark p-1" href="{{ font.get_designer_url }}">{{ font.designer.name }}</a></p>
+            <p>Şrift ailəsi: <a class="btn btn-dark p-1" href="{{ font.get_group_url }}">{{ font.font_group.name }}</a>
+            </p></div>
+        <div class="form-floating text-center m-5" style="min-height: 175px;">
+            <form action="" oninput="result.value=text.value">
+                <label class="w-100 badge bg-dark fs-6 fw-normal rounded-0" for="floatingTextarea">Sənin mətnin</label>
+                <textarea class="form-control rounded-0" placeholder="Mətnini bura yaz" id="floatingTextarea"
+                          name="text"></textarea><br>
+                <output class="fs-6 text-break" name="result"
+                        style="font-family: '{{ font.name }}', {{ font.font_group.name }};"></output></form></div>
+    {% endfor %}
+    {% if designer.count != 1 %}
+        <hr style="height: 40px;">
+        <div class="container my-5">
+            {% for x in fonts %}
+                <h2 class="text-center fw-normal">{{ x.designer.name }} tərəfindən dizayn olunan digər şriftlər</h2>
+                <div class="row row-cols-lg-3">
+                {% for font in designer_objects %}
+                    {% if font.name != x.name %}
+                        <div class="col-lg-4 col-md-6 my-3">
+                            <div class="card my-3 mx-auto bg-light h-100 shadow">
+                                <div class="card-body">
+                                    <h4 class="card-title text-center mb-2">
+                                        <a class="text-danger text-decoration-none"
+                                           style="font-family: '{{ font.name }}', {{ font.font_group.name }};"
+                                           href="{{ font.get_url }}">{{ font.name }}</a></h4>
+                                    <div class="carousel carousel-dark slide" data-bs-ride="carousel"
+                                         id="{{ font.slug }}">
+                                        <div class="carousel-indicators position-absolute top-0">
+                                            <button type="button" data-bs-target="#{{ font.slug }}" data-bs-slide-to="0"
+                                                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#{{ font.slug }}" data-bs-slide-to="1"
+                                                    aria-label="Slide 2"></button></div><div class="h-100 p-3"></div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active" data-bs-interval="60000">
+                                                <div class="d-block w-100">
+                                                    <p class="card-text my-0 fs-6 text-dark text-center"
+                                                       style="font-family: '{{ font.name }}', {{ font.font_group.name }};">
+                                                        Birdən Arslan Ağa balaca uşaq kimi nalə çəkib qışqırdı. Olduğum
+                                                        yerdən onun tərəfinə baxdım. O, körpünün üstündə üzüquylu
+                                                        sərilib qalmışdı, onun ağzından qan gəlirdi.</p></div></div>
+                                            <div class="carousel-item" data-bs-interval="60000">
+                                                <div class="d-block w-100">
+                                                    <p class="card-text my-0 fs-6 text-dark text-center"
+                                                       style="font-family: '{{ font.name }}', {{ font.font_group.name }};">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                                                        enim ad minim veniam, quis nostrud.</p></div></div></div></div>
+                                    <a class="card-subtitle text-primary text-decoration-none fs-6 position-absolute start-0 bottom-0 p-2"
+                                       href="{{ font.get_designer_url }}">{{ font.designer.name }}</a>
+                                    <a class="card-subtitle text-muted text-decoration-none fs-6 position-absolute end-0 bottom-0 p-2"
+                                       href="{{ font.get_group_url }}">{{ font.font_group.name }}</a></div></div></div>
+                    {% endif %}{% endfor %}{% endfor %}</div></div>{% endif %}<hr style="height: 40px;">
+    <div class="container my-5">
+        {% for x in fonts %}
+            <h2 class="text-center fw-normal">{{ x.font_group.name }} şrift ailəsinin digər şriftləri</h2>
+            <div class="row row-cols-lg-3">
+                {% for font in group_objects %}
+                    {% if font.name != x.name and font.designer != x.designer %}
+                        <div class="col-lg-4 col-md-6 my-3">
+                            <div class="card my-3 mx-auto bg-light h-100 shadow">
+                                <div class="card-body">
+                                    <h4 class="card-title text-center mb-2">
+                                        <a class="text-danger text-decoration-none"
+                                           style="font-family: '{{ font.name }}', {{ font.font_group.name }};"
+                                           href="{{ font.get_url }}">{{ font.name }}</a></h4>
+                                    <div class="carousel carousel-dark slide" data-bs-ride="carousel"
+                                         id="{{ font.slug }}">
+                                        <div class="carousel-indicators position-absolute top-0">
+                                            <button type="button" data-bs-target="#{{ font.slug }}" data-bs-slide-to="0"
+                                                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#{{ font.slug }}" data-bs-slide-to="1"
+                                                    aria-label="Slide 2"></button></div><div class="h-100 p-3"></div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active" data-bs-interval="60000">
+                                                <div class="d-block w-100">
+                                                    <p class="card-text my-0 fs-6 text-dark text-center"
+                                                       style="font-family: '{{ font.name }}', {{ font.font_group.name }};">
+                                                        Birdən Arslan Ağa balaca uşaq kimi nalə çəkib qışqırdı. Olduğum
+                                                        yerdən onun tərəfinə baxdım. O, körpünün üstündə üzüquylu
+                                                        sərilib qalmışdı, onun ağzından qan gəlirdi.</p></div></div>
+                                            <div class="carousel-item" data-bs-interval="60000">
+                                                <div class="d-block w-100">
+                                                    <p class="card-text my-0 fs-6 text-dark text-center"
+                                                       style="font-family: '{{ font.name }}', {{ font.font_group.name }};">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                                                        enim ad minim veniam, quis nostrud.</p></div></div></div></div>
+                                    <a class="card-subtitle text-primary text-decoration-none fs-6 position-absolute start-0 bottom-0 p-2"
+                                       href="{{ font.get_designer_url }}">{{ font.designer.name }}</a>
+                                    <a class="card-subtitle text-muted text-decoration-none fs-6 position-absolute end-0 bottom-0 p-2"
+                                       href="{{ font.get_group_url }}">{{ font.font_group.name }}</a></div></div></div>
+                    {% endif %}{% endfor %}</div>{% endfor %}</div>{% endblock %}

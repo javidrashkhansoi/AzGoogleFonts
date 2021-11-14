@@ -10,6 +10,9 @@ class FontGroups(models.Model):
         verbose_name = 'font group'
         verbose_name_plural = 'font groups'
 
+    def get_url(self):
+        return reverse('group', args=[self.slug])
+
     def __str__(self):
         return self.name
 
@@ -45,6 +48,9 @@ class AzGoogleFonts(models.Model):
 
     def get_group_url(self):
         return reverse('group', args=[self.font_group.slug])
+
+    def get_url(self):
+        return reverse('font', args=[self.slug])
 
     def __str__(self):
         return self.name

@@ -3,5 +3,7 @@
 __pycache__
 myvenv
 db.sqlite3
+dbl.sqlite3
 /static
 .DS_Store
+AzGoogleFonts/templates/AzGoogleFonts/sitemap.xml

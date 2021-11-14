@@ -4,11 +4,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-18xj-avw=4gn1idtrjmk&llfc1vl$v$=6wbhgy8u!gsusgk=-s'
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'pythonanywhere.com', '.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    'AzGoogleFontsProject',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -33,7 +34,7 @@ ROOT_URLCONF = 'AzGoogleFontsProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'AzGoogleFonts/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -42,6 +43,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'AzGoogleFonts.context_processors.font_groups_links',
             ],
         },
     },
@@ -81,6 +83,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_DIR = [
+    BASE_DIR / 'AzGoogleFontsProject/static/',
+]
+
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+STATIC_ROOT = Path(BASE_DIR / 'static')
+MEDIA_ROOT = Path(BASE_DIR / 'media')
