@@ -101,4 +101,12 @@
                     {% for link in font_groups %}
                         <li class="nav-item text-end">
                             <a class="nav-link" aria-current="page" href="{{ link.get_url }}">{{ link.name }}</a></li>
-                    {% endfor %}</ul></div></div></nav><div class="mt-5 p-1 p-sm-4"></div></header>
+                    {% endfor %}
+                    <li class="nav-item">
+                        <form class="d-flex" action="{% url 'search' %}">
+                            <input type="search" class="form-control form-control-dark" name="search"
+                                   placeholder="Şrifti adına, və ya dizaynerə görə axtar" aria-label="Search"
+                                   value="{{ search_text }}" onclick="this.value=''">
+                            <button class="btn btn-outline-dark ms-1"
+                                    type="submit"><span class="material-icons">search</span></button>
+                        </form></li></ul></div></div></nav><div class="mt-5 p-1 p-sm-4"></div></header>

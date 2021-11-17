@@ -1,0 +1,87 @@
+{% extends 'AzGoogleFonts/base.html' %}
+{% block content %}
+    {% if fonts|length > 0 %}
+        <div class="container">
+            <div class="row row-cols-lg-3">
+                {% for font in page_objects %}
+                    <div class="col-lg-4 col-md-6 my-3">
+                        <div class="card my-3 mx-auto bg-light h-100 shadow">
+                            <div class="card-body">
+                                <h4 class="card-title text-center mb-2">
+                                    <a class="text-danger text-decoration-none"
+                                       style="font-family: '{{ font.name }}', {{ font.font_group.name }};"
+                                       href="{{ font.get_url }}">{{ font.name }}</a></h4>
+                                <div class="carousel carousel-dark slide" data-bs-ride="carousel" id="{{ font.slug }}">
+                                    <div class="carousel-indicators position-absolute top-0">
+                                        <button type="button" data-bs-target="#{{ font.slug }}" data-bs-slide-to="0"
+                                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                                        <button type="button" data-bs-target="#{{ font.slug }}" data-bs-slide-to="1"
+                                                aria-label="Slide 2"></button></div><div class="h-100 p-3"></div>
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active" data-bs-interval="60000">
+                                            <div class="d-block w-100">
+                                                <p class="card-text my-0 fs-6 text-dark text-center"
+                                                   style="font-family: '{{ font.name }}', {{ font.font_group.name }};">
+                                                    Birdən Arslan Ağa balaca uşaq kimi nalə çəkib qışqırdı. Olduğum
+                                                    yerdən onun tərəfinə baxdım. O, körpünün üstündə üzüquylu sərilib
+                                                    qalmışdı, onun ağzından qan gəlirdi.</p></div></div>
+                                        <div class="carousel-item" data-bs-interval="60000">
+                                            <div class="d-block w-100">
+                                                <p class="card-text my-0 fs-6 text-dark text-center"
+                                                   style="font-family: '{{ font.name }}', {{ font.font_group.name }};">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                                                    ad minim veniam, quis nostrud.</p></div></div></div></div>
+                                <a class="card-subtitle text-primary text-decoration-none fs-6 position-absolute start-0 bottom-0 p-2"
+                                   href="{{ font.get_designer_url }}">{{ font.designer.name }}</a>
+                                <a class="card-subtitle text-muted text-decoration-none fs-6 position-absolute end-0 bottom-0 p-2"
+                                   href="{{ font.get_group_url }}">{{ font.font_group.name }}</a></div></div></div>
+                {% endfor %}</div>
+            {% if page_objects.has_other_pages %}
+                <nav class="fixed-bottom pagination-animation" style="z-index: 500;">
+                    <ul class="pagination justify-content-center">
+                        {% if page_objects.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="?search={{ search_text }}&page={{ page_objects.previous_page_number }}">&laquo;</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                        {% endif %}
+                        {% if page_objects.number != 1 and page_objects.number != 2 and page_objects.number != 3 %}
+                            <li class="page-item">
+                                <a class="page-link" href="?search={{ search_text }}&page=1">1</a></li>
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        {% elif page_objects.number != 1 and page_objects.number != 2 %}
+                            <li class="page-item"><a class="page-link" href="?search={{ search_text }}&page=1">1</a>
+                            </li>{% endif %}
+                        {% for page in page_objects.paginator.page_range %}
+                            {% if page_objects.number == page %}
+                                <li class="page-item active"><span class="page-link">{{ page }}</span></li>
+                            {% elif page >= page_objects.number|add:-1 and page <= page_objects.number|add:1 %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?search={{ search_text }}&page={{ page }}">{{ page }}</a>
+                                </li>{% endif %}{% endfor %}
+                        {% if page_objects.number != page_objects.paginator.num_pages and page_objects.number != page_objects.paginator.num_pages|add:-1 and page_objects.number != page_objects.paginator.num_pages|add:-2 %}
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="?search={{ search_text }}&page={{ page_objects.paginator.num_pages }}">
+                                    {{ page_objects.paginator.num_pages }}</a></li>
+                        {% elif page_objects.number != page_objects.paginator.num_pages and page_objects.number != page_objects.paginator.num_pages|add:-1 %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="?search={{ search_text }}&page={{ page_objects.paginator.num_pages }}">
+                                    {{ page_objects.paginator.num_pages }}</a></li>{% endif %}
+                        {% if page_objects.has_next %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="?search={{ search_text }}&page={{ page_objects.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>{% endif %}</ul></nav>
+            {% endif %}</div>
+    {% else %}
+        <div class="my-5 py-5"></div>
+        <h1 class="text-center my-2 py-2 my-md-4 py-md-4 py-lg-5 my-lg-5">
+            Axtarışda "{{ search_text }}" sorğusuna uyğun nəticə tapılmadı. Yenidən cəhd edin</h1>{% endif %}
+{% endblock %}
